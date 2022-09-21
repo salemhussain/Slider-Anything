@@ -156,6 +156,12 @@ class Slide_Everything {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		// Slider settings page hook
+		$this->loader->add_action( 'admin_menu', $plugin_admin,'wps_plugin_settings_page' );
+		// Slider Tools submenu page Hook
+		$this->loader->add_action( 'admin_menu', $plugin_admin,'wps_tools_page' );
+		// About Us submenu page Hook
+		$this->loader->add_action( 'admin_menu', $plugin_admin,'wps_about_us_page' );
 
 	}
 

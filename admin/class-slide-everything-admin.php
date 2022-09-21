@@ -100,4 +100,90 @@ class Slide_Everything_Admin {
 
 	}
 
+	public function wps_plugin_settings_page() {
+							
+		$page_title = 'WP Slider Settings page';
+		$menu_title = 'WP Slider Settings';
+		$capability = 'manage_options';
+		$slug 		= 'wp-slider-settings-page';
+		$callback 	= array( $this, 'wp_slider_settings_page' );
+		$icon 		= 'dashicons-admin-generic';
+		$position 	= 40;
+		
+		add_menu_page($page_title, $menu_title, $capability, $slug, $callback, $icon, $position);	
+	}
+	public function wps_tools_page() {
+		$parent_slug = 'wp-slider-settings-page';
+		$page_title = 'Slider Tools';
+		$menu_title = 'Tools';
+		$capability = 'manage_options';
+		$slug = 'tools-page';
+		$callback = array( $this, 'wps_tools_page_content' );
+		
+		add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $slug, $callback);	
+	}
+	public function wps_about_us_page() {
+		$parent_slug = 'wp-slider-settings-page';
+		$page_title = 'About Us';
+		$menu_title = 'About Us';
+		$capability = 'manage_options';
+		$slug = 'about-us-page';
+		$callback = array( $this, 'wps_about_us_page_content' );
+		
+		add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $slug, $callback);	
+	}
+	function wp_slider_settings_page() {
+		?>
+		<h1> <?php esc_html_e( 'Welcome to WP Slider Settings page', 'my-plugin-textdomain' ); ?> </h1>
+		<div class="wrap">
+        <form action="options.php" method="post">
+            <?php
+            // output security fields for the registered setting "wporg"
+            settings_fields( 'wps_settings_page' );
+            // output setting sections and their fields
+            // (sections are registered for "wporg", each field is registered to a specific section)
+            do_settings_sections( 'wps_settings_page' );
+            // output save settings button
+            submit_button( 'Save Settings' );
+            ?>
+        </form>
+    </div>
+		<?php
+	}
+	function wps_tools_page_content() {
+		?>
+		<h1> <?php esc_html_e( 'Welcome to WP Slider Tools page', 'my-plugin-textdomain' ); ?> </h1>
+		<div class="wrap">
+        <form action="options.php" method="post">
+            <?php
+            // output security fields for the registered setting "wporg"
+            settings_fields( 'wps_tools_settings_page' );
+            // output setting sections and their fields
+            // (sections are registered for "wporg", each field is registered to a specific section)
+            do_settings_sections( 'wps_tools_settings_page' );
+            // output save settings button
+            submit_button( 'Save Settings' );
+            ?>
+        </form>
+    </div>
+		<?php
+	}
+	function wps_about_us_page_content() {
+		?>
+		<h1> <?php esc_html_e( 'Welcome to About Us page', 'my-plugin-textdomain' ); ?> </h1>
+		<div class="wrap">
+        <form action="options.php" method="post">
+            <?php
+            // output security fields for the registered setting "wporg"
+            settings_fields( 'wps_about_us_settings_page' );
+            // output setting sections and their fields
+            // (sections are registered for "wporg", each field is registered to a specific section)
+            do_settings_sections( 'wps_about_us_settings_page' );
+            // output save settings button
+            submit_button( 'Save Settings' );
+            ?>
+        </form>
+    </div>
+		<?php
+	}
 }
