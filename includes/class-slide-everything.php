@@ -162,7 +162,12 @@ class Slide_Everything {
 		$this->loader->add_action( 'admin_menu', $plugin_admin,'wps_tools_page' );
 		// About Us submenu page Hook
 		$this->loader->add_action( 'admin_menu', $plugin_admin,'wps_about_us_page' );
+		// Hooking up our function to plugin setup
+		$this->loader->add_action( 'init', $plugin_admin, 'wp_slide_anything' );
+		// shortcode for slider
+		$this->loader->add_shortcode( 'slide_anything', $plugin_admin, 'slider_shortcode' );
 
+		
 	}
 
 	/**

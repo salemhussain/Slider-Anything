@@ -74,7 +74,7 @@ class Slide_Everything_Admin {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/slide-everything-admin.css', array(), $this->version, 'all' );
-
+	
 	}
 
 	/**
@@ -99,21 +99,39 @@ class Slide_Everything_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/slide-everything-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
+	// Slider anything post type function
+	function wp_slide_anything() {
+  
+    register_post_type( 'slide_anything',
+    // CPT Options
+        array(
+            'labels' => array(
+                'name' 			=> __( 'Slide Anything' ),
+                'singular_name' => __( 'Slide Anything' )
+            ),
+            'public' => true,
+            'has_archive' 	=> true,
+            'rewrite'		=> array('slug' => 'slide-anything'),
+            'show_in_rest'	=> true,
+			'menu_icon'		=> 'dashicons-embed-photo'
+  
+        )
+    );
+}
 
-	public function wps_plugin_settings_page() {
+	function wps_plugin_settings_page() {
 							
-		$page_title = 'WP Slider Settings page';
-		$menu_title = 'WP Slider Settings';
+		$parent_slug = 'edit.php?post_type=slide_anything';
+		$page_title = 'Slider Settings';
+		$menu_title = 'Slider Settings';
 		$capability = 'manage_options';
-		$slug 		= 'wp-slider-settings-page';
-		$callback 	= array( $this, 'wp_slider_settings_page' );
-		$icon 		= 'dashicons-admin-generic';
-		$position 	= 40;
+		$slug = 'slider-settings';
+		$callback = array( $this, 'wp_slider_settings_page' );
 		
-		add_menu_page($page_title, $menu_title, $capability, $slug, $callback, $icon, $position);	
+		add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $slug, $callback);	
 	}
-	public function wps_tools_page() {
-		$parent_slug = 'wp-slider-settings-page';
+	function wps_tools_page() {
+		$parent_slug = 'edit.php?post_type=slide_anything';
 		$page_title = 'Slider Tools';
 		$menu_title = 'Tools';
 		$capability = 'manage_options';
@@ -122,8 +140,8 @@ class Slide_Everything_Admin {
 		
 		add_submenu_page($parent_slug, $page_title, $menu_title, $capability, $slug, $callback);	
 	}
-	public function wps_about_us_page() {
-		$parent_slug = 'wp-slider-settings-page';
+	function wps_about_us_page() {
+		$parent_slug = 'edit.php?post_type=slide_anything';
 		$page_title = 'About Us';
 		$menu_title = 'About Us';
 		$capability = 'manage_options';
@@ -186,4 +204,33 @@ class Slide_Everything_Admin {
     </div>
 		<?php
 	}
+
+
+// Shortcode to display Owl Carousel slider
+function slider_shortcode() {
+
+	$shortcodee_html = '';
+	$shortcodee_args = array(
+		'posts_per_page' => 10,
+		'post_type'      => 'slide_anything',
+	);
+	
+	$shortcodee_query = new WP_Query( $shortcodee_args );
+	
+	if( $shortcodee_query->have_posts() ) {
+		$shortcodee_html .= '<div class="wp-slide-carousel owl-carousel owl-theme">';
+		while( $shortcodee_query->have_posts() ) {
+			   $shortcodee_query->the_post();
+			   $shortcodee_html .= '<div class="wp-slide-block-column item">';
+			   $shortcodee_html .= '<div class="item"><h1 class="wp-slide_heading">' . get_the_title() .'</h1></div>';
+			   $shortcodee_html .= '<div class="item"><p class="wp-slide-content">'. get_the_content() .'</p></div>';
+			   $shortcodee_html .= '</div>';
+		}
+		$shortcodee_html .= '</div>';
+		wp_reset_query();
+	}
+	return $shortcodee_html;
+	
+}
+
 }

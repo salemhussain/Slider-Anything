@@ -75,6 +75,8 @@ class Slide_Everything_Public {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/slide-everything-public.css', array(), $this->version, 'all' );
 
+		wp_enqueue_style( 'owl-carousel-min-css', plugin_dir_url( __FILE__ ) .'css/owlCssFiles/owl.carousel.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'owl-animate-css', plugin_dir_url( __FILE__ ) .'css/owlCssFiles/animate.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -97,8 +99,11 @@ class Slide_Everything_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/slide-everything-public.js', array( 'jquery' ), $this->version, false );
-
+		
+		// Enqueue scrips for owl carousel slider
+		wp_enqueue_script( 'owl-min-js', plugin_dir_url( __FILE__ ) .'js/owlJsFiles/owl.carousel.min.js', array('jquery'), $this->version, true );
+		wp_enqueue_script( 'owl-custom-js', plugin_dir_url( __FILE__ ) .'js/owl-custom.js', array('jquery'), $this->version, true );
 	}
-	//test
+	
 
 }
