@@ -1,5 +1,7 @@
 jQuery(document).ready(function ($){
-    $('.owl-carousel').owlCarousel({
+     $('.owl-carousel').owlCarousel({
+        // animateOut: 'slideOutDown',
+        // animateIn: 'flipInX',
         loop:true,
         margin:10,
         nav:false,
@@ -10,8 +12,6 @@ jQuery(document).ready(function ($){
         autoplayTimeout:5000,
         autoplayHoverPause:true,
         autoHeight:true,
-        animateOut: 'fadeOut',
-        animateOut: 'slideOutDown',
-        animateIn: 'flipInX',
+        video:true,
         });
-    })
+})

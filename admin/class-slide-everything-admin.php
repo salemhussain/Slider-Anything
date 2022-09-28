@@ -74,6 +74,8 @@ class Slide_Everything_Admin {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/slide-everything-admin.css', array(), $this->version, 'all' );
+
+		wp_enqueue_style( 'block-css', plugin_dir_url( __FILE__ ) . 'css/block.css', array(), $this->version, 'all' );
 	
 	}
 
@@ -97,6 +99,8 @@ class Slide_Everything_Admin {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/slide-everything-admin.js', array( 'jquery' ), $this->version, false );
+
+		wp_enqueue_script( 'block-js', plugin_dir_url( __FILE__ ) . 'js/block.js', array( 'wp-blocks', 'wp-element' ), $this->version, false );
 
 	}
 	// Slider anything post type function
@@ -232,5 +236,5 @@ function slider_shortcode() {
 	return $shortcodee_html;
 	
 }
-
+	
 }
